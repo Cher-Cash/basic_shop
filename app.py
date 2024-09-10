@@ -16,6 +16,15 @@ class Product(db.Model):
     product = db.Column(db.String(50))
     description = db.Column(db.String(2048))
     discount = db.Column(db.Integer)
+    attributes = db.relationship('Attributes', backref='product', lazy=True)
+
+
+class Attributes(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(30))
+    value = db.Column(db.String(30))
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
+
 
 @app.route('/')
 def hello_world():
