@@ -11,7 +11,11 @@ migrate.init_app(app=app, db=db)
 
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), nullable=False)
+    name = db.Column(db.String(30))
+    photo = db.Column(db.String(50))
+    product = db.Column(db.String(50))
+    description = db.Column(db.String(2048))
+    discount = db.Column(db.Integer)
 
 @app.route('/')
 def hello_world():
