@@ -1,3 +1,4 @@
 flask_sqlalchemy
 Flask-Migrate
 datetime
+flask_admin
