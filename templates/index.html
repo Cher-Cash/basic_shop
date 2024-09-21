@@ -1,68 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Shop</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 0;
-            text-align: center;
-        }
-        nav {
-            margin: 10px 0;
-            text-align: center;
-        }
-        nav a {
-            color: #fff;
-            margin: 0 15px;
-            text-decoration: none;
-        }
-        .container {
-            width: 80%;
-            margin: auto;
-            overflow: hidden;
-        }
-        .main-content {
-            padding: 20px;
-        }
-        footer {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 10px 0;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>Online Shop</h1>
-    </header>
-    <nav>
-        <a href="/">На главную</a>
-        <a href="/about">О нас</a>
-        <a href="/contact">Контакты</a>
-    </nav>
-    <div class="container">
-        <div class="main-content">
-            <h2>Welcome to Our Online Shop!</h2>
-            <p>Browse through our selection of amazing products.</p>
-        </div>
+{% extends 'base.html' %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<h2>Добро пожаловать в наш магазин!</h2>
+<div class="products">
+    {% for product in products %}
+    <div class="product">
+        <h3>{{ product.name }}</h3>
+        <img src="{{ product.photo }}" alt="{{ product.name }}" class="product-photo">
+        <p>{{ product.description }}</p>
+        <p>Цена: {{ product.price }} руб.</p>
+        <a href="{{url_for('product_detail', product_id=product.id)}}">BUY</a>
     </div>
-    <footer>
-        <p>&copy; 2024 Online Shop. All rights reserved.</p>
-    </footer>
-</body>
-</html>
+    {% endfor %}
+</div>
+{% endblock %}

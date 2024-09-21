@@ -1,78 +1,15 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>О нас</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Arial', sans-serif;
-            background-color: #1c1c1c;
-            color: #e0e0e0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-        .container {
-            max-width: 900px;
-            padding: 30px;
-            background-color: #2a2a2a;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            border-radius: 12px;
-        }
-        h1 {
-            text-align: center;
-            color: #ffffff;
-            font-size: 38px;
-            margin-bottom: 20px;
-        }
-        p {
-            font-size: 18px;
-            line-height: 1.7;
-            margin-bottom: 20px;
-        }
-        .highlight {
-            color: #4dabf7;
-        }
-        .mission {
-            background-color: #333;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-        .mission p {
-            margin: 0;
-            color: #b3b3b3;
-        }
-        footer {
-            margin-top: 30px;
-            text-align: center;
-            color: #7a7a7a;
-            font-size: 14px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>О нашем магазине</h1>
-        <p>
-            Добро пожаловать в наш интернет-магазин, где мы предоставляем лучшие товары для наших клиентов с вниманием к деталям и высоким уровнем сервиса. Мы стремимся предложить вам широкий ассортимент продукции, который отвечает самым высоким стандартам качества.
-        </p>
-        <div class="mission">
-            <p><strong>Наша миссия:</strong> <span class="highlight">делать покупки простыми и приятными для каждого клиента</span>. Мы стараемся превзойти ваши ожидания, предлагая товары высшего класса с быстрой доставкой и профессиональной поддержкой.</p>
-        </div>
-        <p>
-            Мы верим, что каждый клиент важен для нас, и именно поэтому наша команда работает круглосуточно, чтобы обеспечить вам лучший сервис. За годы работы мы заслужили доверие тысяч покупателей, и мы гордимся тем, что можем предложить вам не только отличные товары, но и незабываемый опыт покупок.
-        </p>
-        <p>
-            Если у вас есть какие-либо вопросы или предложения, не стесняйтесь обращаться к нам. Мы всегда рады помочь вам!
-        </p>
-        <footer>
-            &copy; 2024 Интернет-магазин | Все права защищены
-        </footer>
-    </div>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}О нас{% endblock %}
+
+{% block content %}
+<h1>О нашем магазине</h1>
+<p>
+    Добро пожаловать в наш интернет-магазин, данный
+    магазин является учебным проектом для освоения основ веб разработки.
+</p>
+<p>
+    Если у вас есть какие-либо вопросы или предложения,
+    можете связаться с <a href="{{ url_for('contact') }}">нами</a>.
+</p>
+{% endblock %}
