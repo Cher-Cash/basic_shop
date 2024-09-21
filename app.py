@@ -18,6 +18,7 @@ class Product(db.Model):
     photo = db.Column(db.String(50))
     product = db.Column(db.String(50))
     description = db.Column(db.String(2048))
+    price = db.Column(db.Integer)
     discount = db.Column(db.Integer)
     attributes = db.relationship('Attributes', backref='product', lazy=False)
     orders = db.relationship('Orders', backref='product', lazy=True)
