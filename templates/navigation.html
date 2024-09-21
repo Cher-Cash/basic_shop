@@ -1,5 +1,5 @@
 <nav>
-    <a href="{{ url_for('index') }}">На главную</a>
-    <a href="{{ url_for('about') }}">О нас</a>
-    <a href="{{ url_for('contact') }}">Контакты</a>
+    <a href="{{ url_for('index') }}" class="{% if request.path == url_for('index') %}active{% endif %}">Главная</a>
+    <a href="{{ url_for('about') }}" class="{% if request.path == url_for('about') %}active{% endif %}">О нас</a>
+    <a href="{{ url_for('contact') }}" class="{% if request.path == url_for('contact') %}active{% endif %}">Контакты</a>
 </nav>
