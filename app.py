@@ -15,13 +15,16 @@ migrate = Migrate(app, db)
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30))
-    photo = db.Column(db.String(50))
+    photo = db.Column(db.String(200))
     product = db.Column(db.String(50))
     description = db.Column(db.String(2048))
     price = db.Column(db.Integer)
     discount = db.Column(db.Integer)
     attributes = db.relationship('Attributes', backref='product', lazy=False)
     orders = db.relationship('Orders', backref='product', lazy=True)
+
+    def __repr__(self):
+        return f'<Product {self.name}>'
 
 class Attributes(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -47,7 +50,8 @@ admin.add_view(MyModelView(Orders, db.session))
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    products = Product.query.all()
+    return render_template('index.html', products=products)
 
 @app.route('/contact')
 def contact():
