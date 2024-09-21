@@ -18,6 +18,7 @@ class Product(db.Model):
     photo = db.Column(db.String(50))
     product = db.Column(db.String(50))
     description = db.Column(db.String(2048))
+    price = db.Column(db.Integer)
     discount = db.Column(db.Integer)
     attributes = db.relationship('Attributes', backref='product', lazy=False)
     orders = db.relationship('Orders', backref='product', lazy=True)
@@ -47,6 +48,13 @@ admin.add_view(MyModelView(Orders, db.session))
 @app.route('/')
 def index():
     return render_template('index.html')
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
