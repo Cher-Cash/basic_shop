@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block title %}Номер вашего заказа: {{ order.id }}{% endblock %}
+
+{% block content %}
+<p>Оплата успешно прошла</p>
+<p>Заказ будет выслан электронным письмом на ваш email: {{ order.email }}</p>
+{% endblock %}

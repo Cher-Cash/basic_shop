@@ -1,6 +1,7 @@
+import hashlib
 from datetime import datetime
 from flask_migrate import Migrate
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, abort
 from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
@@ -53,6 +54,14 @@ admin.add_view(MyModelView(Attributes, db.session))
 admin.add_view(MyModelView(Orders, db.session))
 
 
+def generate_signature(order_id):
+    secret_key = app.config['SECRET_KEY']
+    sigma = f"{order_id}{secret_key}"
+    hash_object = hashlib.sha256(sigma.encode())
+    signature = hash_object.hexdigest()
+    return signature
+
+
 @app.route('/')
 def index():
     products = Product.query.all()
@@ -72,7 +81,19 @@ def about():
 @app.route('/order/<int:order_id>')
 def order_route(order_id):
     order = Orders.query.get_or_404(order_id)
-    return render_template('order.html', order=order)
+    signature = generate_signature(order_id)
+    return render_template('order.html', order=order, signature=signature)
+
+
+@app.route('/order/paid/<int:order_id>')
+def order_paid(order_id):
+    signature_client = request.args.get('signature')
+    signature = generate_signature(order_id)
+    if signature_client != signature:
+        abort(403)
+    order = Orders.query.get_or_404(order_id)
+    # TODO seng mail, update order
+    return render_template('paid_order.html', order=order)
 
 
 @app.route('/product/<int:product_id>', methods=["POST", "GET"])
@@ -85,6 +106,10 @@ def product_detail(product_id):
         db.session.commit()
         return redirect(url_for('order_route', order_id=new_order.id))
     return render_template('buying_page.html', product=product, preorder=False)
+
+
+
+
 
 
 if __name__ == '__main__':

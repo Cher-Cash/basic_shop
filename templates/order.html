@@ -1,8 +1,15 @@
 {% extends 'base.html' %}
 
-{% block title %}Номер вашего заказа: order.id{% endblock %}
+{% block title %}Номер вашего заказа: {{ order.id }}{% endblock %}
 
 {% block content %}
 <p>Сейчас вас перенаправит на страницу оплаты</p>
-<a href='https://memepedia.ru/wp-content/uploads/2021/09/menja-zaskamili-mem-1.jpg'>Для перехода к оплате кликните сюда</a>
+<a href="{{ url_for('order_paid', order_id=order.id, signature=signature) }}">Для перехода к оплате кликните сюда</a>
+{% endblock %}
+{% block scripts %}
+<script>
+    setTimeout(function() {
+        window.location.href = "{{ url_for('order_paid', order_id=order.id, signature=signature) }}";
+    }, 10000);
+</script>
 {% endblock %}
