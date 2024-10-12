@@ -5,12 +5,15 @@ from models import Product, Attributes, Orders
 from utils import generate_signature
 
 
-def create_app():
+def create_app(testing=False):
     app = Flask(__name__)
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///mydatabase.db"
+    if testing:
+        app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///:memory:"
+    else:
+        app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///mydatabase.db"
     app.config["SECRET_KEY"] = "TypeMeIn"
     db.init_app(app)
-    migrate_ext.init_app(app)
+    migrate_ext.init_app(app, db)
     admin_ext.init_app(app)
 
     @app.route("/")

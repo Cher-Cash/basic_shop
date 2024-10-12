@@ -5,11 +5,10 @@ from models import Product
 
 @pytest.fixture()
 def testapp_fixture():
-    test_app = create_app()
+    test_app = create_app(testing=True)
     test_app.config.update(
         {
             "TESTING": True,
-            "SQLALCHEMY_DATABASE_URI": "sqlite:///:memory:",  # Временная БД для тестов
         }
     )
 
@@ -40,3 +39,8 @@ def test_index_page(client):
 def test_contact_page(client):
     response = client.get("/contact")
     assert b"kovach.aleksey19@ya.ru" in response.data
+
+
+def test_product(client):
+    response = client.get("/product/1")
+    assert b"Test Product" in response.data
