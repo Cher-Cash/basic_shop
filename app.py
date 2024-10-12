@@ -108,9 +108,5 @@ def product_detail(product_id):
     return render_template('buying_page.html', product=product, preorder=False)
 
 
-
-
-
-
 if __name__ == '__main__':
     app.run(debug=True)
