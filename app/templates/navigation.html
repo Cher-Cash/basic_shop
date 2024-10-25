@@ -1,0 +1,5 @@
+<nav>
+    <a href="{{ url_for('products.index') }}" class="{% if request.path == url_for('products.index') %}active{% endif %}">Главная</a>
+    <a href="{{ url_for('pages.about') }}" class="{% if request.path == url_for('pages.about') %}active{% endif %}">О нас</a>
+    <a href="{{ url_for('pages.contact') }}" class="{% if request.path == url_for('pages.contact') %}active{% endif %}">Контакты</a>
+</nav>

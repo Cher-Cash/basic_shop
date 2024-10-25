@@ -1,4 +1,4 @@
-from utils import generate_signature
+from app.utils import generate_signature
 
 
 def test_generate_signature():

@@ -1,6 +1,6 @@
 import pytest
 from app import create_app, db
-from models import Product
+from app.models import Product
 
 
 @pytest.fixture()
