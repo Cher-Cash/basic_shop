@@ -1,5 +1,6 @@
 .venv
 .idea
-app/instance/
+instance/
 todo.txt
 venv
+.env
