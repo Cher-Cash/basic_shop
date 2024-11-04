@@ -3,3 +3,4 @@ Flask-Migrate
 datetime
 flask_admin
 pytest
+python-dotenv

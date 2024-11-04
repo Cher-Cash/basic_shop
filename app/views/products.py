@@ -20,5 +20,5 @@ def product_detail(product_id):
         new_order = Orders(email=email, status="pending", prod_id=product_id)
         db.session.add(new_order)
         db.session.commit()
-        return redirect(url_for("order_bp.order_route", order_id=new_order.id))
+        return redirect(url_for("order.order_route", order_id=new_order.id))
     return render_template("buying_page.html", product=product, preorder=False)

@@ -9,7 +9,7 @@
 {% block scripts %}
 <script>
     setTimeout(function() {
-        window.location.href = "{{ url_for('order_paid', order_id=order.id, signature=signature) }}";
+        window.location.href = "{{ url_for('order.order_paid', order_id=order.id, signature=signature) }}";
     }, 10000);
 </script>
 {% endblock %}

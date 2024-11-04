@@ -1,4 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for, abort
+import os
+from dotenv import load_dotenv
+
+from flask import Flask
 from flask_admin.contrib.sqla import ModelView
 from flask_admin import Admin
 from flask_migrate import Migrate
@@ -10,6 +13,7 @@ from app.models import Product, Attributes, Orders
 
 admin_ext = Admin(template_mode='bootstrap3')
 migrate_ext = Migrate()
+load_dotenv()
 
 
 def create_app(testing=False):
@@ -18,7 +22,7 @@ def create_app(testing=False):
         app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///:memory:"
     else:
         app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///mydatabase.db"
-    app.config["SECRET_KEY"] = "TypeMeIn"
+    app.config["SECRET_KEY"] = os.getenv('SECRET_KEY', 'TypeMeIn')
     db.init_app(app)
     migrate_ext.init_app(app, db)
     admin_ext.init_app(app)
