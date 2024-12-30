@@ -1,5 +1,5 @@
-from flask import Blueprint, render_template, abort, request, current_app
-from app.models import Orders
+from flask import Blueprint, render_template, abort, request, current_app, redirect
+from app.models import Orders, Product
 from app.utils import generate_signature, send_email
 
 
@@ -12,6 +12,16 @@ def order_route(order_id):
     signature = generate_signature(order_id, current_app.config["SECRET_KEY"])
     return render_template("order.html", order=order, signature=signature)
 
+
+@order_bp.route("/order/paying/<int:order_id>")
+def order_paying(order_id):
+    order = Orders.query.get_or_404(order_id)
+    product = Product.query.get_or_404(order.prod_id)
+    price = product.price
+    signature = generate_signature(order_id, current_app.config["SECRET_KEY"])
+    callback_url = f"https://bshop.gunlinux.ru/order/paid/{order.id}"
+    redirectional_url = f"https://pay.gunlinux.ru/process?company_id=1&order_id={order.id}&callback_url={callback_url}&price={price}"
+    return redirect(redirectional_url)
 
 @order_bp.route("/order/paid/<int:order_id>")
 def order_paid(order_id):
