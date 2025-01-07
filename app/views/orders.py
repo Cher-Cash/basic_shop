@@ -14,19 +14,19 @@ def order_route(order_id, company_id=1):
 
 
 @order_bp.route("/order/paying/<int:order_id>")
-def order_paying(order_id):
+def order_paying(order_id, company_id=1):
     order = Orders.query.get_or_404(order_id)
     product = Product.query.get_or_404(order.prod_id)
     price = product.price
-    signature = generate_signature(order_id, current_app.config["SECRET_KEY"])
+    signature = generate_signature(order_id, company_id, current_app.config["SECRET_KEY"])
     callback_url = f"https://bshop.gunlinux.ru/order/paid/{order.id}"
     redirectional_url = f"https://pay.gunlinux.ru/process?company_id=1&order_id={order.id}&callback_url={callback_url}&price={price}"
     return redirect(redirectional_url)
 
 @order_bp.route("/order/paid/<int:order_id>")
-def order_paid(order_id):
+def order_paid(order_id, company_id=1):
     signature_client = request.args.get("signature")
-    signature = generate_signature(order_id, current_app.config["SECRET_KEY"])
+    signature = generate_signature(order_id, company_id, current_app.config["SECRET_KEY"])
     if signature_client != signature:
         abort(403)
     current_order = Orders.query.get_or_404(order_id)
