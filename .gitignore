@@ -4,3 +4,7 @@ instance/
 todo.txt
 venv
 .env
+app/__pycache__/
+app/views/__pycache__/
+migrations/__pycache__/
+migrations/versions/__pycache__/
