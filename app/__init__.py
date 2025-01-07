@@ -23,6 +23,7 @@ def create_app(testing=False):
     else:
         app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///mydatabase.db"
     app.config["SECRET_KEY"] = os.getenv('SECRET_KEY', 'TypeMeIn')
+    app.config["COMPANY_ID"] = os.getenv('COMPANY_ID', '1')
     db.init_app(app)
     migrate_ext.init_app(app, db)
     admin_ext.init_app(app)
