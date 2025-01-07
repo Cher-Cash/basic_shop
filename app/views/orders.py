@@ -7,9 +7,9 @@ order_bp = Blueprint('order', __name__)
 
 
 @order_bp.route("/order/<int:order_id>")
-def order_route(order_id):
+def order_route(order_id, company_id=1):
     order = Orders.query.get_or_404(order_id)
-    signature = generate_signature(order_id, current_app.config["SECRET_KEY"])
+    signature = generate_signature(order_id, company_id, current_app.config["SECRET_KEY"])
     return render_template("order.html", order=order, signature=signature)
 
 
